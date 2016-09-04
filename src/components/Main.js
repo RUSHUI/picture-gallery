@@ -23,7 +23,7 @@ function getRangeRandom(Min,Max) {
 }
 /*获取0-30°之间的任意的正负值*/
 function get30DegRandom() {
-  return (Math.random()> 0.5 ?"":"-")+ Math.ceil(Math.random()*30);
+  return (Math.random()> 0.5 ?'':'-')+ Math.ceil(Math.random()*30);
 }
 
 var ImgFigure =  React.createClass({
@@ -64,12 +64,29 @@ var ImgFigure =  React.createClass({
   }
 });
 var ControllerUnit = React.createClass({
-  handleClick:function(){
+  handleClick:function(e){
+    if(this.props.arrange.isCenter){
+      this.props.inverse();
+    }else{
+      this.props.center();
+    }
 
+
+    e.preventDefault();
+    e.stopPropagation();
   },
   render:function(){
+    var controllerUnitClassName = "controller-unit";
+    if(this.props.arrange.isCenter){
+      controllerUnitClassName+=" is-center";
+      if(this.props.arrange.isInverse){
+        controllerUnitClassName += " is-inverse";
+      }
+
+    }
+
     return (
-      <span className="controller-unit" onClick={this.handleClick}></span>
+      <span className={controllerUnitClassName} onClick={this.handleClick}></span>
     );
   }
 });
@@ -219,7 +236,7 @@ class AppComponent extends React.Component {
       imgFigures = [];
     imageDatas.forEach(function(value,idx){
       if(!this.state.imgsArrangeArr[idx]){
-        console.log(this.state.imgsArrangeArr[idx]);
+      //  console.log(this.state.imgsArrangeArr[idx]);
         this.state.imgsArrangeArr[idx] ={
           pos:{
             left:0,
@@ -231,7 +248,7 @@ class AppComponent extends React.Component {
         }
       }
       imgFigures.push(<ImgFigure center={this.center(idx)} inverse ={this.inverse(idx)} arrange={this.state.imgsArrangeArr[idx]} data={value} key={idx} ref ={'imgFigure' + idx }/>);
-      controllerUnits.push(<ControllerUnit key={idx}/>)
+      controllerUnits.push(<ControllerUnit key={idx} arrange={this.state.imgsArrangeArr[idx]} inverse={this.inverse(idx)} center={this.center(idx)}/>)
     }.bind(this));
     return (
      <section className="stage" ref="stage" >

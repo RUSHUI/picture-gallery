@@ -22,7 +22,7 @@ module.exports = {
     ],
     loaders: [
       {
-        test: /\.(png|jpg|gif|woff|woff2|json|css|sass|scss|less|styl)$/,
+        test: /\.(png|jpg|gif|woff|ttf|eot|woff2|json|css|sass|scss|less|styl)$/,
         loader: 'null-loader'
       },
       {
