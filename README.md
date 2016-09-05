@@ -1,7 +1,10 @@
-# picture-gallery
+Gallery By React
+=====
 a react project
+```
 npm install 或者  cnpm install
-若成功运行 
+```
+若成功运行
 ```node
  npm start  启动项目，启动之后自动启动浏览器浏览程序主页
 ```
